@@ -1,6 +1,6 @@
 using RectanglesManagmentApi.Models;
 
-public static class RectangleHelper
+public static class RectangleExtensions
 {
 
     public static bool PointInRectangle(this RectangleModel rect, Point2D point)

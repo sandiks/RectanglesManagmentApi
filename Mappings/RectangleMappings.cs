@@ -10,7 +10,7 @@ public static class RectangleMappings
     {
         X = item.From.x,
         Y = item.From.y,
-        Xx = item.To.y,
+        Xx = item.To.x,
         Yy = item.To.y,
     };
 
