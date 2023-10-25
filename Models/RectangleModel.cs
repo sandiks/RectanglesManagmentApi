@@ -1,6 +1,6 @@
 namespace RectanglesManagmentApi.Models;
 
-public record Point2D(int x, int y);
+public record Point2D(int X, int Y);
 
 public class RectangleModel
 {

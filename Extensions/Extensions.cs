@@ -5,8 +5,8 @@ public static class RectangleExtensions
 
     public static bool PointInRectangle(this RectangleModel rect, Point2D point)
     {
-        return point.x > rect.From.x && point.x < rect.To.x
-        && point.y > rect.From.y && point.y < rect.To.y;
+        return point.X > rect.From.X && point.X < rect.To.X
+        && point.Y > rect.From.Y && point.Y < rect.To.Y;
     }
 }
 

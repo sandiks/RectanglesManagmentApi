@@ -8,10 +8,10 @@ public static class RectangleMappings
     public static Rectangle ToEntity(this RectangleModel item) =>
     new()
     {
-        X = item.From.x,
-        Y = item.From.y,
-        Xx = item.To.x,
-        Yy = item.To.y,
+        X = item.From.X,
+        Y = item.From.Y,
+        Xx = item.To.X,
+        Yy = item.To.Y,
     };
 
     public static RectangleModel ToModel(this Rectangle entity) =>
