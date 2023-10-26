@@ -1,4 +1,4 @@
-namespace RectanglesManagmentApi.Services;
+namespace RectanglesManagmentApi.Data;
 
 public interface IDbService
 {

@@ -1,14 +1,9 @@
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using Dapper;
-using Microsoft.Extensions.Configuration;
 using Npgsql;
-using Dapper.Bulk;
-using Microsoft.Data.SqlClient;
+using Dapper.Contrib.Extensions;
 
-namespace RectanglesManagmentApi.Services;
+namespace RectanglesManagmentApi.Data;
 
 public class DbService : IDbService
 {
@@ -41,11 +36,7 @@ public class DbService : IDbService
 
     public async Task BulkInsert<T>(List<T> data)
     {
-        var connectionString = _db.ConnectionString;
-        using (var connection = new SqlConnection(connectionString))
-        {
-            await connection.BulkInsertAsync(data);
-        }
+        await _db.InsertAsync(data);
     }
 
     public async Task<int> EditData(string command, object parms)

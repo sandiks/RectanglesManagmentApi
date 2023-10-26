@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using RectanglesManagmentApi.Data;
 using RectanglesManagmentApi.Entities;
+using RectanglesManagmentApi.Repositories;
 
 
 namespace RectanglesManagmentApi.Services;
@@ -8,9 +10,11 @@ namespace RectanglesManagmentApi.Services;
 public class RectangleService : IRectangleService
 {
     private readonly IDbService _dbService;
+    private readonly IRectangleRepository _rectangleRepo;
 
-    public RectangleService(IDbService dbService)
+    public RectangleService(IRectangleRepository rectangleRepo, IDbService dbService)
     {
+        _rectangleRepo = rectangleRepo;
         _dbService = dbService;
     }
 

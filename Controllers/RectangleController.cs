@@ -29,7 +29,7 @@ public class RectangleController : ControllerBase
     [HttpGet("GenerateAndSave")]
     public async Task<IActionResult> GenerateAndSave()
     {
-        var data = _rectangleManager.GenerateRectangles(10);
+        var data = _rectangleManager.GenerateRectangles(100);
         await _rectService.BulkInsert(data.Select(r => r.ToEntity()).ToList());
         return Ok();
     }

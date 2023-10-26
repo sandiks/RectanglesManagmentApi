@@ -1,3 +1,5 @@
+using RectanglesManagmentApi.Data;
+using RectanglesManagmentApi.Repositories;
 using RectanglesManagmentApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<RectangleManager>();
 builder.Services.AddScoped<IDbService, DbService>();
+builder.Services.AddScoped<IRectangleRepository, RectangleRepository>();
 builder.Services.AddScoped<IRectangleService, RectangleService>();
 
 

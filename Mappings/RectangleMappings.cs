@@ -8,16 +8,16 @@ public static class RectangleMappings
     public static Rectangle ToEntity(this RectangleModel item) =>
     new()
     {
-        X = item.From.X,
-        Y = item.From.Y,
-        Xx = item.To.X,
-        Yy = item.To.Y,
+        x = item.From.X,
+        y = item.From.Y,
+        xx = item.To.X,
+        yy = item.To.Y,
     };
 
     public static RectangleModel ToModel(this Rectangle entity) =>
     new()
     {
-        From = new(entity.X, entity.Y),
-        To = new(entity.Xx, entity.Yy),
+        From = new(entity.x, entity.y),
+        To = new(entity.xx, entity.yy),
     };
 }
