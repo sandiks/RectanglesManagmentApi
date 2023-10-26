@@ -1,4 +1,6 @@
+using RectanglesManagmentApi.Authorization;
 using RectanglesManagmentApi.Data;
+using RectanglesManagmentApi.Helpers;
 using RectanglesManagmentApi.Repositories;
 using RectanglesManagmentApi.Services;
 
@@ -10,11 +12,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<RectangleManager>();
 builder.Services.AddScoped<IDbService, DbService>();
 builder.Services.AddScoped<IRectangleRepository, RectangleRepository>();
 builder.Services.AddScoped<IRectangleService, RectangleService>();
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
+// configure DI for application services
+builder.Services.AddScoped<IJwtUtils, JwtUtils>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
@@ -29,6 +34,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseMiddleware<JwtMiddleware>();
 app.MapControllers();
 
 app.Run();

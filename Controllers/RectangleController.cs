@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RectanglesManagmentApi.Authorization;
 using RectanglesManagmentApi.Mappings;
 using RectanglesManagmentApi.Services;
 
@@ -23,6 +24,7 @@ public class RectangleController : ControllerBase
         return Ok(_rectService.GenerateRectangles(200));
     }
 
+    [Authorize]
     [HttpGet("GenerateAndSave")]
     public async Task<IActionResult> GenerateAndSave()
     {
@@ -31,6 +33,7 @@ public class RectangleController : ControllerBase
         return Ok();
     }
 
+    [Authorize]
     [HttpPost("Filter")]
     public async Task<IActionResult> FilterRectangles([FromBody] List<int> coords)
     {
