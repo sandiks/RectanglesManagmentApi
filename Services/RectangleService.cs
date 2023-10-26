@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using RectanglesManagmentApi.Data;
 using RectanglesManagmentApi.Entities;
+using RectanglesManagmentApi.Mappings;
+using RectanglesManagmentApi.Models;
 using RectanglesManagmentApi.Repositories;
 
 
@@ -22,7 +22,7 @@ public class RectangleService : IRectangleService
     {
         var result =
             await _dbService.EditData(
-                "INSERT INTO public.rectangle (x,y,xx,yy) VALUES (@X, @Y, @Xx, @Yy)", rect);
+                "INSERT INTO public.rectangle (x,y,xx,yy) VALUES (@x, @y, @xx, @yy)", rect);
         return true;
     }
 
@@ -42,6 +42,36 @@ public class RectangleService : IRectangleService
         return data;
     }
 
+    public IEnumerable<RectangleModel> GenerateRectangles(int count)
+    {
+        Random rand = new();
+        return Enumerable.Range(1, count).Select(indx =>
+        {
+            var x = rand.Next(2000);
+            var y = rand.Next(2000);
+            var w = rand.Next(6000);
+            var h = rand.Next(6000);
+            return new RectangleModel() { From = new(x, y), To = new(x + w, y + h) };
+        });
+    }
+
+    public async Task<IEnumerable<PointInRectangles>> FilterRectanglesByCoordinates(IEnumerable<Point2D> coords)
+    {
+        var rectangles = (await GetRectangles()).Select(r => r.ToModel());
+        List<PointInRectangles> result = new();
+        foreach (var coord in coords)
+        {
+            var rects = rectangles.Where(r => r.PointInRectangle(coord)).ToList();
+            if (rects.Any())
+                result.Add(new PointInRectangles()
+                {
+                    Point = coord,
+                    Rectangles = rects
+                });
+        }
+        return result;
+    }
+
 }
 
 public interface IRectangleService
@@ -49,5 +79,7 @@ public interface IRectangleService
     Task<bool> AddRectangle(Rectangle rect);
     Task BulkInsert(List<Rectangle> data);
     Task<List<Rectangle>> GetRectangles();
+    IEnumerable<RectangleModel> GenerateRectangles(int count);
+    Task<IEnumerable<PointInRectangles>> FilterRectanglesByCoordinates(IEnumerable<Point2D> coords);
     Task<Rectangle> GetRectangle(int id);
 }

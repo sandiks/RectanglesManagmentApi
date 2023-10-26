@@ -34,9 +34,9 @@ public class DbService : IDbService
         return result;
     }
 
-    public async Task BulkInsert<T>(List<T> data)
+    public Task BulkInsert<T>(List<T> data)
     {
-        await _db.InsertAsync(data);
+        return _db.InsertAsync(data);
     }
 
     public async Task<int> EditData(string command, object parms)
