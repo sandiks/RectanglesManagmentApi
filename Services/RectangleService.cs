@@ -29,9 +29,10 @@ public class RectangleService : IRectangleService
     public Task BulkInsert(List<Rectangle> data) =>
         _dbService.BulkInsert(data);
 
-    public async Task<List<Rectangle>> GetRectangles()
+    public async Task<List<Rectangle>> GetRectangles(int page = 0, int pageSize = 1000)
     {
-        var data = await _dbService.GetAll<Rectangle>("SELECT * FROM public.rectangle", new { });
+        var data = await _dbService.GetAll<Rectangle>("SELECT * FROM public.rectangle LIMIT @pageSize OFFSET @page",
+            new { page = (page - 1) * pageSize, pageSize });
         return data;
     }
 
@@ -91,7 +92,7 @@ public interface IRectangleService
 {
     Task<bool> AddRectangle(Rectangle rect);
     Task BulkInsert(List<Rectangle> data);
-    Task<List<Rectangle>> GetRectangles();
+    Task<List<Rectangle>> GetRectangles(int page = 0, int pageSize = 1000);
     IEnumerable<RectangleModel> GenerateRectangles(int count);
     IEnumerable<SimpleRectangleModel> GenerateSimpleRectangles(int count);
     Task<IEnumerable<PointInRectangles>> FilterRectanglesByCoordinates(IEnumerable<Point2D> coords);

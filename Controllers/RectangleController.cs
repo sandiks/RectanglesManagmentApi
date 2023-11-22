@@ -28,7 +28,7 @@ public class RectangleController : ControllerBase
     [HttpGet("GenerateAndSave")]
     public async Task<IActionResult> GenerateAndSave()
     {
-        var data = _rectService.GenerateRectangles(100);
+        var data = _rectService.GenerateRectangles(100000);
         await _rectService.BulkInsert(data.Select(r => r.ToEntity()).ToList());
         return Ok();
     }
@@ -38,6 +38,13 @@ public class RectangleController : ControllerBase
     public async Task<IActionResult> FilterRectangles([FromBody] List<int> coords)
     {
         var data = await _rectService.FilterRectanglesByCoordinates(coords.ListToPoints());
+        return Ok(data);
+    }
+
+    [HttpGet("FetchRectangles")]
+    public async Task<IActionResult> FetchRectangles(int page, int count)
+    {
+        var data = await _rectService.GetRectangles(page, count);
         return Ok(data);
     }
 

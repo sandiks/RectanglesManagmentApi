@@ -28,3 +28,5 @@ CREATE TABLE rectangle (
     alpha double precision,
     created TIMESTAMP
 );
+
+ALTER TABLE rectangle ALTER COLUMN created SET DEFAULT now();
