@@ -39,4 +39,12 @@ public static class RectangleMappings
         high = entity.hight,
         alpha = entity.alpha,
     };
+
+    public static ABCRectangleModel ToABCRectangleModel(this RectangleModel rect) =>
+    new()
+    {
+        A = new(rect.From.X, rect.From.Y),
+        B = new(rect.From.X - rect.high * Math.Cos(rect.alpha), rect.From.Y + rect.high * Math.Sin(rect.alpha)),
+        C = new(rect.From.X + rect.width * Math.Cos(rect.alpha), rect.From.Y + rect.width * Math.Sin(rect.alpha)),
+    };
 }
