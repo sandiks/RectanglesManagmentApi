@@ -42,7 +42,7 @@ public class RectangleService : IRectangleService
         return data;
     }
 
-    public IEnumerable<RectangleModel> GenerateRectangles(int count)
+    public IEnumerable<SimpleRectangleModel> GenerateSimpleRectangles(int count)
     {
         Random rand = new();
         return Enumerable.Range(1, count).Select(indx =>
@@ -51,7 +51,20 @@ public class RectangleService : IRectangleService
             var y = rand.Next(2000);
             var w = rand.Next(6000);
             var h = rand.Next(6000);
-            return new RectangleModel() { From = new(x, y), To = new(x + w, y + h) };
+            return new SimpleRectangleModel() { From = new(x, y), To = new(x + w, y + h) };
+        });
+    }
+    public IEnumerable<RectangleModel> GenerateRectangles(int count)
+    {
+        Random rand = new();
+        return Enumerable.Range(1, count).Select(indx =>
+        {
+            var x = rand.NextDouble() * 2000;
+            var y = rand.NextDouble() * 2000;
+            var w = rand.NextDouble() * 6000;
+            var h = rand.NextDouble() * 6000;
+            var alpha = rand.NextDouble() * Math.PI / 2;
+            return new RectangleModel() { From = new(x, y), width = w, high = h, alpha = alpha };
         });
     }
 
@@ -80,6 +93,7 @@ public interface IRectangleService
     Task BulkInsert(List<Rectangle> data);
     Task<List<Rectangle>> GetRectangles();
     IEnumerable<RectangleModel> GenerateRectangles(int count);
+    IEnumerable<SimpleRectangleModel> GenerateSimpleRectangles(int count);
     Task<IEnumerable<PointInRectangles>> FilterRectanglesByCoordinates(IEnumerable<Point2D> coords);
     Task<Rectangle> GetRectangle(int id);
 }

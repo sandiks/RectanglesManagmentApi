@@ -10,11 +10,21 @@ GRANT
 SELECT
     ON ALL TABLES IN SCHEMA public TO rectuser;
 
-CREATE TABLE rectangle (
+CREATE TABLE simple_rectangle (
     id SERIAL PRIMARY KEY,
     x int,
     y int,
     xx int,
     yy int,
+    created TIMESTAMP
+);
+
+CREATE TABLE rectangle (
+    id SERIAL PRIMARY KEY,
+    x double precision,
+    y double precision,
+    width double precision,
+    hight double precision,
+    alpha double precision,
     created TIMESTAMP
 );

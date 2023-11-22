@@ -24,7 +24,7 @@ public class RectangleController : ControllerBase
         return Ok(_rectService.GenerateRectangles(200));
     }
 
-    [Authorize]
+    //[Authorize]
     [HttpGet("GenerateAndSave")]
     public async Task<IActionResult> GenerateAndSave()
     {
@@ -42,7 +42,7 @@ public class RectangleController : ControllerBase
     }
 
     [HttpPost("Transform")]
-    public async Task<IActionResult> TransformListToPoints([FromBody] List<int> coords)
+    public IActionResult TransformListToPoints([FromBody] List<int> coords)
     {
         return Ok(coords.ListToPoints());
     }
