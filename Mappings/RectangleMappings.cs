@@ -43,8 +43,8 @@ public static class RectangleMappings
     public static ABCRectangleModel ToABCRectangleModel(this RectangleModel rect) =>
     new()
     {
-        A = new(rect.From.X, rect.From.Y),
-        B = new(rect.From.X - rect.high * Math.Cos(rect.alpha), rect.From.Y + rect.high * Math.Sin(rect.alpha)),
+        B = new(rect.From.X, rect.From.Y),
+        A = new(rect.From.X - rect.high * Math.Sin(rect.alpha), rect.From.Y + rect.high * Math.Cos(rect.alpha)),
         C = new(rect.From.X + rect.width * Math.Cos(rect.alpha), rect.From.Y + rect.width * Math.Sin(rect.alpha)),
     };
 }
